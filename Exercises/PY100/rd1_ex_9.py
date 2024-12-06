@@ -1,0 +1,5 @@
+type(23.5)
+type('Call me Ishmael.')
+type(False)
+type(0)
+type(None)
