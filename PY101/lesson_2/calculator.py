@@ -1,8 +1,88 @@
-# Ask the user for the first number.
-# Ask the user for the second number.
-# Ask the user for an operation to perform.
-# Perform the operation on the two numbers.
-# Print the result to the terminal.
+import json
+
+with open('calculator_messages.json', 'r') as file:
+    data = json.load(file)
+
+# print(data["first_number"])
+
+def invalid_number(number_str):
+    try:
+        float(number_str)
+    except ValueError:
+        return True
+
+    return False
+
+def prompt(message):
+    print(f"==> {message}")
+
+def get_language():
+    prompt(data["language"])
+    language = input()
+    while language not in ("English", "Spanish"):
+        prompt(data["language_again"])
+        language = input()
+        if language in ("English", "Spanish"):
+            return language
+
+    return language
+
+
+def run_calculator():
+    prompt(data[lang]["first_number"])
+    number1 = input()
+
+    while invalid_number(number1):
+        prompt(data[lang]["valid_number"])
+        number1 = input()
+
+    prompt(data[lang]["second_number"])
+    number2 = input()
+
+    while invalid_number(number2):
+        prompt(data[lang]["valid_number"])
+        number2 = input()
+
+    prompt(data[lang]["choose_operation"])
+    operation = input()
+
+    while operation not in ["1", "2", "3", "4"]:
+        prompt(data[lang]["choose"])
+        operation = input()
+
+    match operation:
+        case '1':
+            output = float(number1) + float(number2)
+        case '2':
+            output = float(number1) - float(number2)
+        case '3':
+            output= float(number1) * float(number2)
+        case '4':
+            output = float(number1) / float(number2)
+
+    prompt(f"{data[lang]["result"]} {output}")
+
+prompt('Welcome to Calculator!')
+
+lang = get_language()
+print(lang)
+
+while True:
+    run_calculator()
+    prompt(data[lang]["another_calc"])
+    response = input()
+
+    while response not in ("No", "Yes", "Si", "no"):
+        print(data[lang]["valid_response"])
+        response = input()
+
+    if response in ("No", "no"):
+        break
+
+
+
+
+
 
 # def get_operation():
 #     op = ""
@@ -33,13 +113,6 @@
 #     else:
 #         return False
 
-def invalid_number(number_str):
-    try:
-        int(number_str)
-    except ValueError:
-        return True
-
-    return False
 # prompt("Welcome to Calculator!")
 # print()
 
@@ -49,48 +122,6 @@ def invalid_number(number_str):
 # num2 = int(input())
 # print()
 
-
-
 # operation = get_operation()
 # result = operate(num1, num2, operation)
 # print(f'{num1} {operation} {num2} = {result}')
-
-def prompt(message):
-    print(f"==> {message}")
-
-prompt('Welcome to Calculator!')
-
-prompt("What's the first number?")
-number1 = input()
-
-while invalid_number(number1):
-    prompt("Hmm... that doesn't look like a valid number.")
-    number1 = input()
-
-prompt("What's the second number?")
-number2 = input()
-
-while invalid_number(number2):
-    prompt("Hmm... that doesn't look like a valid number.")
-    number2 = input()
-
-prompt('What operation would you like to perform?\n'
-      '1) Add 2) Subtract 3) Multiply 4) Divide')
-operation = input()
-
-while operation not in ["1", "2", "3", "4"]:
-    prompt('You must choose 1, 2, 3, or 4')
-    operation = input()
-
-
-match operation:
-    case '1':
-        output = int(number1) + int(number2)
-    case '2':
-        output = int(number1) - int(number2)
-    case '3':
-        output= int(number1) * int(number2)
-    case '4':
-        output = int(number1) / int(number2)
-
-print(f"The result is: {output}")

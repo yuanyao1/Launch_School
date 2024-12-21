@@ -1,0 +1,24 @@
+{
+  "language": "Do you want to proceed in English or Spanish?",
+  "language_again": "Please enter English or Spanish.",
+  "English": {
+    "first_number": "What's the first number?",
+    "second_number": "What's the second number?",
+    "valid_number": "Hmm... that doesn't look like a valid number.",
+    "choose_operation": "What operation would you like to perform?\n1) Add 2) Subtract 3) Multiply 4) Divide",
+    "choose": "You must choose 1, 2, 3, or 4.",
+    "another_calc": "Do you want to perform another calculation? Yes or No",
+    "valid_response": "Not a valid instruction. Please type Yes or No",
+    "result": "The result is"
+  },
+  "Spanish": {
+    "first_number": "Cuál es el primer número?",
+    "second_number": "Cuál es el segundo número?",
+    "valid_number": "Hmm ... eso no parece un número válido.",
+    "choose_operation": "Qué operación le gustaría realizar?\n1) Agregar 2) Restar 3) Multiplicar 4) Divide",
+    "choose": "Debe elegir 1, 2, 3 o 4.",
+    "another_calc": "Quieres realizar otro cálculo? Sí o no",
+    "valid_response": "No es una instrucción válida. Por favor escriba sí o no",
+    "result": "El resultado es"
+  }
+}
