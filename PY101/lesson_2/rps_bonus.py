@@ -3,23 +3,23 @@ import random
 CONDITIONS = {
     'rock': {
         'abbr': 'r',
-        'beats': ("scissors", "lizards")
+        'beats': ('scissors', 'lizards')
     },
     'paper': {
         'abbr': 'p',
-        'beats': ("rock", "spock")
+        'beats': ('rock', 'spock')
     },
     'scissors': {
         'abbr': 'sc',
-        'beats': ("paper", "lizard")
+        'beats': ('paper', 'lizard')
     },
     'lizard': {
         'abbr': 'l',
-        'beats': ("spock", "paper")
+        'beats': ('spock', 'paper')
     },
     'spock': {
         'abbr': 'sp',
-        'beats': ("scissors", "rock")
+        'beats': ('scissors', 'rock')
     }
 }
 
@@ -45,15 +45,6 @@ messages = {
 def prompt(message):
     print(f"==> {message}")
 
-def get_winner(user, comp):
-    if user == comp:
-        return messages['tie']
-
-    if comp in CONDITIONS[user]['beats']:
-        return messages['user_win']
-
-    return messages['comp_win']
-
 def get_user_selection():
     user_input = input().lower()
 
@@ -69,6 +60,15 @@ def get_user_selection():
 
     return user_input
 
+def get_winner(user, comp):
+    if user == comp:
+        return messages['tie']
+
+    if comp in CONDITIONS[user]['beats']:
+        return messages['user_win']
+
+    return messages['comp_win']
+
 def keep_score(game):
     if game == messages['user_win']:
         scores['user'] += 1
@@ -77,17 +77,28 @@ def keep_score(game):
     else:
         scores['tie'] += 1
 
-def continue_play():
+def hit_win_limit():
     if scores['user'] == MAX_WINS:
         prompt(messages['grand_win_user'])
-        return 'no'
-
+        return True
     if scores['comp'] == MAX_WINS:
         prompt(messages['grand_win_comp'])
+        return True
+
+    return False
+
+def continue_play():
+    if hit_win_limit():
         return 'no'
 
     prompt("Play again? y/n")
-    return input().lower()
+    response = input().lower()
+
+    while response not in ("n", "no", "y", "yes"):
+        prompt('Please enter y for "yes" or n for "no"')
+        response = input().lower()
+
+    return response
 
 def run_game():
     play = "yes"
@@ -108,12 +119,7 @@ def run_game():
         prompt(messages['scoreboard'].format(user_pts = scores['user'],
                                             comp_pts = scores['comp'],
                                             tie_pts = scores['tie']))
-
         play = continue_play()
-
-        while play not in ("n", "no", "y", "yes"):
-            prompt('Please enter y for "yes" or n for "no"')
-            play = input().lower()
 
 prompt(f"Let's play {", ".join(CHOICES)}!")
 run_game()
